@@ -1,0 +1,28 @@
+# Keystone
+
+> ### **Keystone**
+>
+> _A central stone at the summit of an arch, locking the whole together._
+
+This project was developed for rapidly deploying a core set of services that I'd need for hosting web-based projects
+
+## Requirements
+
+* Docker must be installed on the server
+* Bash script must be supported
+
+## What's Deployed
+
+* A `./development` directory is created with folders for each of the containers listed below stored in `./development/core`
+* A **corenetwork** docker network is created; so everything sits on a `172.25.0.0/16` network range
+
+| container | description |
+| --------- | ----------- |
+| **nginx-proxy** | web proxy server to redirect URLs to different containers |
+| **nginx-letsencrypt** | free SSL certificate generation (for production deployments) |
+| **nginx-gen** | proxy config generation when new containers are made |
+| **core-db** | database server container |
+| **core-dbadmin** | database admin webUI container |
+| **portainer** | Portainer.io container orchestration webUI container |
+
+

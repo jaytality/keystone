@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+  core_db:
+    image: mysql:5.7
+    volumes:
+      - ./data/db:/var/lib/mysql
+      - ./data/sql:/mnt
+    restart: always
+    container_name: core_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      default:
+        ipv4_address: 172.25.0.200
+
+  core_pma:
+    depends_on:
+      - core_db
+    image: phpmyadmin/phpmyadmin
+    environment:
+      VIRTUAL_HOST: phpmyadmin.local
+      PMA_HOST: core_db
+    container_name: core_pma
+    volumes:
+      - ./data/pma/sessions:/sessions
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    restart: always
+    networks:
+      default:
+        ipv4_address: 172.25.0.201
+
+networks:
+  default:
+    external:
+      name: devproxy
