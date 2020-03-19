@@ -72,7 +72,7 @@ case "$option" in
         echo
         echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
         echo
-        
+
         # create a docker network
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
         docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME}
@@ -81,7 +81,7 @@ case "$option" in
         # launch proxy
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
         echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: proxy network ...\033[0K\r"
-        echo "NETWORK=${NET_NAME}" > ./core/proxy/.env
+        echo "NETWORK=${NET_NAME}" >> ./core/proxy/.env
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured"
         echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy container ...\033[0K\r"
         cd core/proxy && docker-compose up -d
