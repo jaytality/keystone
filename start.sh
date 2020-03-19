@@ -75,7 +75,7 @@ case "$option" in
         
         # create a docker network
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
-        docker network create -d bridge --subnet 172.25.0.0/16 --gateway 172.25.0.1 --ip-range= ${NET_NAME}
+        docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME}
         echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: docker network ${NET_NAME} successfully created"
 
         # launch proxy
@@ -86,5 +86,7 @@ case "$option" in
         echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy container ...\033[0K\r"
         cd core/proxy && docker-compose up -d
         echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started"
+        cd ../..
+        pwd
         exit;;
 esac
