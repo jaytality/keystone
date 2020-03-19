@@ -13,7 +13,6 @@ This project was developed for rapidly deploying a core set of services that I'd
 
 ## What's Deployed
 
-* A `./development` directory is created with folders for each of the containers listed below stored in `./development/core`
 * A **corenetwork** docker network is created; so everything sits on a `172.25.0.0/16` network range
 
 | container | description |
@@ -25,4 +24,11 @@ This project was developed for rapidly deploying a core set of services that I'd
 | **core-dbadmin** | database admin webUI container |
 | **portainer** | Portainer.io container orchestration webUI container |
 
+## Hosts
 
+You'll need to edit your OS's hosts file to be able to access certain features
+
+| host | ip | description |
+| ---- | -- | ----------- |
+| portainer.local | 127.0.0.1 | access portainer for container orchestration |
+| dbadmin.local | 127.0.0.1 | access database admin UI |
