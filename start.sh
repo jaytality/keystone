@@ -73,10 +73,17 @@ case "$option" in
         echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
         echo
 
-        # create a docker network
-        echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
-        docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME} > /dev/null 2>&1
-        echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: docker network ${NET_NAME} successfully created"
+        #
+        # docker network create
+        #
+        if [ ! "$(docker network ls | grep ${NET_NAME})" ]; then
+            echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
+            docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME} > /dev/null 2>&1
+            echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: docker network ${NET_NAME} successfully created, continuing..."
+        else
+            echo -e "[ ${LIGHTRED}EXISTS      ${NOCOLOR} ] ${NET_NAME} docker network already exists, skipping..."
+        fi
+        echo
 
         # launch proxy
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
