@@ -66,13 +66,8 @@ done
 case "$option" in
     1)
         echo
-        echo -e "${WHITE}Installing WHMCS billing for ALL BRANDS...${NOCOLOR}"
+        echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
         echo
-        setup_foundation
-        deploy_billing anchor
-        deploy_billing crucial
-        deploy_billing dp
-        deploy_billing panthur
-        deploy_billing web24
+        echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: nginx-proxy\033[0K\r"
         exit;;
 esac
