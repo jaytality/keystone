@@ -13,7 +13,7 @@ This project was developed for rapidly deploying a core set of services that I'd
 
 ## What's Deployed
 
-* A **corenetwork** docker network is created; so everything sits on a `172.25.0.0/16` network range
+* A **corenetwork** docker network is created; so everything sits on a `172.32.0.0/16` network range
 
 | container | description |
 | --------- | ----------- |
