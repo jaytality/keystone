@@ -75,7 +75,7 @@ case "$option" in
 
         # create a docker network
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
-        docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME}
+        docker network create -d bridge --subnet 172.32.0.0/16 --gateway 172.32.0.1 --ip-range= ${NET_NAME} > /dev/null 2>&1
         echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: docker network ${NET_NAME} successfully created"
 
         # launch proxy
@@ -84,8 +84,8 @@ case "$option" in
         echo "NETWORK=${NET_NAME}" >> ./core/proxy/.env
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured"
         echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy container ...\033[0K\r"
-        cd core/proxy && docker-compose up -d
-        echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started"
+        cd core/proxy && docker-compose up -d > /dev/null 2>&1
+        echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started\033[0K\r"
         cd ../..
         pwd
         exit;;
