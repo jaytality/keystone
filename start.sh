@@ -28,6 +28,10 @@ LIGHTPURPLE='\e[1;35m'
 LIGHTCYAN='\e[1;36m'
 WHITE='\e[1;37m'
 
+destroy_all() {
+    docker network rm ${NET_NAME} > /dev/null 2>&1
+}
+
 show_menu() {
     case "$1" in
         'main')
@@ -68,6 +72,19 @@ case "$option" in
         echo
         echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
         echo
-        echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: nginx-proxy\033[0K\r"
+        
+        # create a docker network
+        echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: docker container network ${NET_NAME} ...\033[0K\r"
+        docker network create -d bridge --subnet 172.25.0.0/16 --gateway 172.25.0.1 --ip-range= ${NET_NAME}
+        echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: docker network ${NET_NAME} successfully created"
+
+        # launch proxy
+        echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
+        echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: proxy network ...\033[0K\r"
+        echo "NETWORK=${NET_NAME}" > ./core/proxy/.env
+        echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured"
+        echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy container ...\033[0K\r"
+        cd core/proxy && docker-compose up -d
+        echo -e "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started"
         exit;;
 esac
