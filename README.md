@@ -20,8 +20,8 @@ This project was developed for rapidly deploying a core set of services that I'd
 | **nginx-proxy** | web proxy server to redirect URLs to different containers |
 | **nginx-letsencrypt** | free SSL certificate generation (for production deployments) |
 | **nginx-gen** | proxy config generation when new containers are made |
-| **core-db** | database server container |
-| **core-dbadmin** | database admin webUI container |
+| **db-core** | database server container |
+| **db-admin** | database admin webUI container |
 | **portainer** | Portainer.io container orchestration webUI container |
 
 ## Hosts
