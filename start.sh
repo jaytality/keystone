@@ -29,7 +29,40 @@ LIGHTCYAN='\e[1;36m'
 WHITE='\e[1;37m'
 
 destroy_all() {
-    docker network rm ${NET_NAME} > /dev/null 2>&1
+    echo
+    echo -e "${LIGHTRED}THIS IS IRREVERSIBLE${NOCOLOR}"
+    read -p "Do you really want to remove everything? [y/N]: " remove
+    until [[ "$remove" =~ ^[yYnN]*$ ]]; do
+        echo "$remove: invalid selection."
+        echo
+        read -p "Do you really want to remove everything? [y/N]: " remove
+    done
+    if [[ "$remove" =~ ^[yY]$ ]]; then
+        # stop all containers
+        echo -e "[ ${RED}STOPPING    ${NOCOLOR} ] keystone containers ...\033[0K\r"
+        docker stop nginx-gen > /dev/null 2>&1
+        docker stop nginx-letsencrypt > /dev/null 2>&1
+        docker stop nginx-web > /dev/null 2>&1
+        echo -ne "[ ${LIGHTRED}STOPPED     ${NOCOLOR} ] keystone containers\033[0K\r"
+
+        # removing containers
+        echo -e "[ ${RED}REMOVING    ${NOCOLOR} ] keystone containers ...\033[0K\r"
+        docker rm nginx-gen > /dev/null 2>&1
+        docker rm nginx-letsencrypt > /dev/null 2>&1
+        docker rm nginx-web > /dev/null 2>&1
+        echo -ne "[ ${LIGHTRED}REMOVED     ${NOCOLOR} ] keystone containers\033[0K\r"
+
+        # removing docker network
+        echo -e "[ ${RED}REMOVING    ${NOCOLOR} ] keystone network: ${NET_NAME} ...\033[0K\r"
+        docker network rm ${NET_NAME} > /dev/null 2>&1
+        echo -ne "[ ${LIGHTRED}REMOVED     ${NOCOLOR} ] keystone network: ${NET_NAME}\033[0K\r"
+
+        echo
+    else
+        echo
+        echo -e "${LIGHTGREEN}Destruction Aborted!${NOCOLOR} Phew..."
+        echo
+    fi
 }
 
 show_menu() {
@@ -44,11 +77,12 @@ show_menu() {
         echo
         echo
         echo
-        echo -e "   5) ${WHITE}EXIT${NOCOLOR}"
+        echo -e "   5) ${RED}DESTROY EVERYTHING${NOCOLOR}"
         echo
         echo
-        echo -e "   0) ${RED}DESTROY EVERYTHING${NOCOLOR}"
         echo
+        echo
+        echo -e "   0) ${WHITE}EXIT${NOCOLOR}"
         echo
         ;;
     esac
@@ -85,15 +119,27 @@ case "$option" in
         fi
         echo
 
-        # launch proxy
+        #
+        # launch:
+        #   nginx-web
+        #   nginx-letsencrypt
+        #   nginx-gen
+        #
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
         echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: proxy network ...\033[0K\r"
         echo "NETWORK=${NET_NAME}" >> ./core/proxy/.env
-        echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured"
-        echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy container ...\033[0K\r"
+        echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured\033[0K\r"
+        echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
         cd core/proxy && docker-compose up -d > /dev/null 2>&1
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started\033[0K\r"
-        cd ../..
-        pwd
+        exit;;
+    5)
+        echo
+        echo -e "${WHITE}INITIATING DESTRUCT SEQUENCE...${NOCOLOR}"
+        destroy_all
+        exit;;
+    0)
+        echo
+        echo -e "Goodbye!"
         exit;;
 esac
