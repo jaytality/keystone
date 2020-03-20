@@ -184,6 +184,7 @@ case "$option" in
         printf "\nPORTAINER_URL=${PORTAINER_URL}\n" >> .env
         printf "\nPORTAINER_PORT=${PORTAINER_PORT}\n" >> .env
         printf "\nSSL_MAIL=${SSL_MAIL}\n" >> .env
+        printf "\nNET_NAME=${NET_NAME}\n" >> .env
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: portainer orchestration container configured\033[0K\r"
 
         echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: portainer orchestration containers ...\033[0K\r"
