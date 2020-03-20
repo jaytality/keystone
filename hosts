@@ -1,0 +1,5 @@
+
+# copy these into your OS's hosts folder
+
+dbadmin.local   127.0.0.1
+portainer.local 127.0.0.1
