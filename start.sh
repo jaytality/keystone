@@ -115,7 +115,7 @@ done
 case "$option" in
     1)
         # clearing .git so it doesn't cause issues
-        #rm -rf ./.git
+        rm -rf ./.git
 
         echo
         echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
