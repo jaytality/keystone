@@ -174,7 +174,10 @@ case "$option" in
         cd ../..
         echo
 
-        # portainer
+        #
+        # launch:
+        #   portainer
+        #
         cd core/portainer
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: portainer orchestration containers ...\033[0K\r"
         echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: portainer orchestration container ...\033[0K\r"
@@ -190,9 +193,30 @@ case "$option" in
         cd ../..
         echo
 
-        # end of executions
+        # end of deployments
         echo
         exit;;
+
+    2)
+        echo
+        echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: all containers ...\033[0K\r"
+        cd core/portainer && docker-compose up -d && cd ../.. > /dev/null 2>&1
+        cd core/database && docker-compose up -d && cd ../.. > /dev/null 2>&1
+        cd core/proxy && docker-compose up -d && cd ../.. > /dev/null 2>&1
+        echo -ne "[ ${LIGHTRED}STARTED     ${NOCOLOR} ] CORE: all containers\033[0K\r"
+        echo
+        exit;;
+
+    3)
+        echo
+        echo -ne "[ ${RED}STOPPING    ${NOCOLOR} ] CORE: all containers ...\033[0K\r"
+        cd core/portainer && docker-compose down && cd ../.. > /dev/null 2>&1
+        cd core/database && docker-compose down && cd ../.. > /dev/null 2>&1
+        cd core/proxy && docker-compose down && cd ../.. > /dev/null 2>&1
+        echo -ne "[ ${LIGHTRED}STOPPED     ${NOCOLOR} ] CORE: all containers\033[0K\r"
+        echo
+        exit;;
+
     5)
         echo
         echo -e "${WHITE}INITIATING DESTRUCT SEQUENCE...${NOCOLOR}"
