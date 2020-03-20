@@ -42,6 +42,8 @@ destroy_all() {
         docker stop nginx-gen > /dev/null 2>&1
         docker stop nginx-letsencrypt > /dev/null 2>&1
         docker stop nginx-web > /dev/null 2>&1
+        docker stop db-admin > /dev/null 2>&1
+        docker stop db-core > /dev/null 2>&1
         echo -ne "[ ${LIGHTRED}STOPPED     ${NOCOLOR} ] keystone containers\033[0K\r"
         echo
 
@@ -50,6 +52,8 @@ destroy_all() {
         docker rm nginx-gen > /dev/null 2>&1
         docker rm nginx-letsencrypt > /dev/null 2>&1
         docker rm nginx-web > /dev/null 2>&1
+        docker rm db-admin > /dev/null 2>&1
+        docker rm db-core > /dev/null 2>&1
         echo -ne "[ ${LIGHTRED}REMOVED     ${NOCOLOR} ] keystone containers\033[0K\r"
         echo
 
@@ -129,13 +133,14 @@ case "$option" in
         #
         echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
         echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: proxy network ...\033[0K\r"
-        echo "\nNETWORK=${NET_NAME}" >> ./core/proxy/.env
+        printf "\nNETWORK=${NET_NAME}\n" >> ./core/proxy/.env
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured\033[0K\r"
         echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
         cd core/proxy && docker-compose up -d > /dev/null 2>&1
         echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy containers started\033[0K\r"
         cd ../..
         echo
+
         #
         # launch:
         #    db-core
