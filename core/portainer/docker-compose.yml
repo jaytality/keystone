@@ -12,8 +12,10 @@ services:
       - 127.0.0.1:9000:9000
       - 127.0.0.1:8000:8000
     environment:
-      VIRTUAL_HOST: portainer.local
-      VIRTUAL_PORT: 9000
+      VIRTUAL_HOST: ${PORTAINER_URL}
+      VIRTUAL_PORT: ${PORTAINER_PORT}
+      LETSENCRYPT_HOST: ${PORTAINER_URL}
+      LETSENCRYPT_MAIL: ${SSL_MAIL}
 
 networks:
   default:
