@@ -6,6 +6,11 @@
 #
 NET_NAME='corenetwork'
 SQL_PASS='password'
+SSL_MAIL='sslemail@address.local'
+
+# portainer specific
+PORTAINER_URL='portainer.local'
+PORTAINER_PORT='9000'
 
 ############################## DO NOT EDIT BELOW THIS LINE ##############################
 
@@ -80,8 +85,8 @@ show_menu() {
         echo
         echo -e "What do you want to deploy?"
         echo -e "   1) Deploy Keystone Core infrastructure"
-        echo
-        echo
+        echo -e "   2) [ ${LIGHTGREEN}START${NOCOLOR} ] keystone infrastructure containers"
+        echo -e "   3) [ ${LIGHTRED}STOP {$NOCOLOR} ] keystone infrastructure containers"
         echo
         echo -e "   5) ${RED}DESTROY EVERYTHING${NOCOLOR}"
         echo
@@ -109,6 +114,9 @@ done
 
 case "$option" in
     1)
+        # clearing .git so it doesn't cause issues
+        rm -rf ./.git
+
         echo
         echo -e "[ ${LIGHTPURPLE}STARTING    ${NOCOLOR} ] Keystone Core Infrastructure"
         echo
