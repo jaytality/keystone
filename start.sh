@@ -86,7 +86,7 @@ show_menu() {
         echo -e "What do you want to deploy?"
         echo -e "   1) Deploy Keystone Core infrastructure"
         echo -e "   2) [ ${LIGHTGREEN}START${NOCOLOR} ] keystone infrastructure containers"
-        echo -e "   3) [ ${LIGHTRED}STOP {$NOCOLOR} ] keystone infrastructure containers"
+        echo -e "   3) [ ${LIGHTRED}STOP ${NOCOLOR} ] keystone infrastructure containers"
         echo
         echo -e "   5) ${RED}DESTROY EVERYTHING${NOCOLOR}"
         echo
