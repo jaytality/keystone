@@ -4,7 +4,8 @@
 >
 > _A central stone at the summit of an arch, locking the whole together._
 
-This project was developed for rapidly deploying a core set of services that I'd need for hosting web-based projects
+This project was developed for rapidly deploying a core set of services that I'd need for hosting web-based projects locally for development.
+This project can also be deployed for production (no matter how the SysOps and Engineers feel about Docker in production haha)
 
 ## Requirements
 
@@ -13,7 +14,7 @@ This project was developed for rapidly deploying a core set of services that I'd
 
 ## What's Deployed
 
-* A **corenetwork** docker network is created; so everything sits on a `172.32.0.0/16` network range
+* A **corenetwork** docker network is created; so everything sits on a `172.25.0.0/16` network range
 
 | container | description |
 | --------- | ----------- |
@@ -24,7 +25,7 @@ This project was developed for rapidly deploying a core set of services that I'd
 | **db-admin** | database admin webUI container |
 | **portainer** | Portainer.io container orchestration webUI container |
 
-## Hosts
+## Local Hosts
 
 You'll need to edit your OS's hosts file to be able to access certain features
 
