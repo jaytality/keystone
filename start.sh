@@ -4,7 +4,7 @@
 # CONFIG SETTINGS
 # change these as needed!
 #
-NET_NAME='corenetwork'
+NET_NAME='devproxy'
 SQL_PASS='password'
 SSL_MAIL='sslemail@address.local'
 
