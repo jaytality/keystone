@@ -143,7 +143,10 @@ while true; do
             #
             echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
             echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: proxy network ...\033[0K\r"
-            printf "\nNETWORK=${NET_NAME}\n" >> ./core/proxy/.env
+                # check if NETWORK is set
+                if ! grep -q "NETWORK=${NET_NAME}" ./core/proxy/.env; then
+                    printf "\nNETWORK=${NET_NAME}" >> ./core/proxy/.env
+                fi
             echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: proxy network configured\033[0K\r"
             echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: proxy containers ...\033[0K\r"
             cd core/proxy && docker-compose up -d > /dev/null 2>&1
