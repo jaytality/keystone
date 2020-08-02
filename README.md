@@ -1,6 +1,7 @@
 # Keystone
 
 > ### **Keystone**
+> ###### key·​stone | \ ˈkē-ˌstōn
 >
 > _Something on which associated things depend for support._
 >
