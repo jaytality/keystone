@@ -1,1 +1,7 @@
-data
+data/
+conf.d/*
+
+!conf.d/realip.conf
+!conf.d/servertokens.conf
+!conf.d/timeouts.conf
+!conf.d/uploadsize.conf
