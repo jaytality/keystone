@@ -53,7 +53,7 @@ PORTAINER_PORT='9000'
 | **SQL_PASS** | the root SQL password you'll be setting for the MySQL/phpMyAdmin containers |
 | **SSL_MAIL** | the email address SSL certificates will be registered with Let's Encrypt with |
 | **PORTAINER_URL** | the URL you'll access to interact with Portainer to manage everything through a pretty GUI |
-| **PORTAINER_PORT** | the Portainer port that'll get proxied to your `PORTAINER_URL` for interaction so that you won't need to add a `:portnumber` after the URL |
+| **PORTAINER_PORT** | the Portainer port that'll get proxied to your `PORTAINER_URL` so you don't have to `:portnumber` after the URL |
 
 ## Local Hosts
 
