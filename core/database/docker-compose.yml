@@ -16,14 +16,14 @@ services:
       default:
         ipv4_address: 172.25.0.200
 
-  db-admin:
+  core_pma:
     depends_on:
       - core_db
     image: phpmyadmin/phpmyadmin
     environment:
       VIRTUAL_HOST: phpmyadmin.local
       PMA_HOST: core_db
-    container_name: db-admin
+    container_name: core_pma
     volumes:
       - ./data/pma/sessions:/sessions
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
