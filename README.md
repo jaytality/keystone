@@ -67,3 +67,5 @@ You'll need to edit your OS's hosts file to be able to access certain features
 - - - - -
 
 Then, as per usual, `chmod +x ./start.sh`, and run it!
+
+![Image of Yaktocat](https://raw.githubusercontent.com/jaytwitch/keystone/master/screenshot.jpg)
