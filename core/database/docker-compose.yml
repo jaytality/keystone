@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  db-core:
+  core_db:
     image: mysql:5.7
     volumes:
       - ./data/db:/var/lib/mysql
       - ./data/sql:/mnt
     restart: always
-    container_name: db-core
+    container_name: core_db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_USER: root
@@ -18,11 +18,11 @@ services:
 
   db-admin:
     depends_on:
-      - db-core
+      - core_db
     image: phpmyadmin/phpmyadmin
     environment:
       VIRTUAL_HOST: phpmyadmin.local
-      PMA_HOST: db-core
+      PMA_HOST: core_db
     container_name: db-admin
     volumes:
       - ./data/pma/sessions:/sessions
