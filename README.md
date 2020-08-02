@@ -2,7 +2,10 @@
 
 > ### **Keystone**
 >
-> _An immaterial thing upon which something else rests._
+> _Something on which associated things depend for support._
+>
+> <sub>[Merriam-Webster Definition #2](https://www.merriam-webster.com/dictionary/keystone)</sub>
+>
 
 This project was developed for rapidly deploying a core set of services that I'd need for hosting web-based projects locally for development.
 This project can also be deployed for production (no matter how the SysOps and Engineers feel about Docker in production haha)
