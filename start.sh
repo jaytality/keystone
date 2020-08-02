@@ -156,8 +156,8 @@ while true; do
 
             #
             # launch:
-            #    db-core
-            #    db-admin
+            #    core_db
+            #    core_pma
             #
             echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: database containers ...\033[0K\r"
             cd core/database
@@ -168,8 +168,16 @@ while true; do
             mkdir -p data/pma/sessions
 
             echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: db core container ...\033[0K\r"
-            printf "\nMYSQL_PASSWORD=${SQL_PASS}\n" >> .env
-            printf "\nNET_NAME=${NET_NAME}\n" >> .env
+
+                # check if MYSQL_PASSWORD is set
+                if ! grep -q "MYSQL_PASSWORD=${SQL_PASS}" .env; then
+                    printf "\nMYSQL_PASSWORD=${SQL_PASS}" >> .env
+                fi
+                # check if NET_NAME is set
+                if ! grep -q "NET_NAME=${NET_NAME}" .env; then
+                    printf "\nNET_NAME=${NET_NAME}" >> .env
+                fi
+
             echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: db core container configured\033[0K\r"
 
             echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: database containers ...\033[0K\r"
@@ -186,10 +194,24 @@ while true; do
             cd core/portainer
             echo -ne "[ ${GREEN}DEPLOYING   ${NOCOLOR} ] CORE: portainer orchestration containers ...\033[0K\r"
             echo -ne "[ ${GREEN}CONFIGURING ${NOCOLOR} ] CORE: portainer orchestration container ...\033[0K\r"
-            printf "\nPORTAINER_URL=${PORTAINER_URL}\n" >> .env
-            printf "\nPORTAINER_PORT=${PORTAINER_PORT}\n" >> .env
-            printf "\nSSL_MAIL=${SSL_MAIL}\n" >> .env
-            printf "\nNET_NAME=${NET_NAME}\n" >> .env
+
+                # check if PORTAINER_URL is set
+                if ! grep -q "PORTAINER_URL=${PORTAINER_URL}" .env; then
+                    printf "\nPORTAINER_URL=${PORTAINER_URL}" >> .env
+                fi
+                # check if PORTAINER_PORT is set
+                if ! grep -q "PORTAINER_PORT=${PORTAINER_PORT}" .env; then
+                    printf "\nPORTAINER_PORT=${PORTAINER_PORT}" >> .env
+                fi
+                # check if PORTAINER_URL is set
+                if ! grep -q "SSL_MAIL=${SSL_MAIL}" .env; then
+                    printf "\nSSL_MAIL=${SSL_MAIL}" >> .env
+                fi
+                # check if PORTAINER_URL is set
+                if ! grep -q "NET_NAME=${NET_NAME}" .env; then
+                    printf "\nNET_NAME=${NET_NAME}" >> .env
+                fi
+
             echo -ne "[ ${LIGHTGREEN}SUCCESS     ${NOCOLOR} ] CORE: portainer orchestration container configured\033[0K\r"
 
             echo -ne "[ ${GREEN}STARTING    ${NOCOLOR} ] CORE: portainer orchestration containers ...\033[0K\r"
@@ -239,10 +261,12 @@ while true; do
         0)
             echo
             echo -e "Goodbye!"
+            echo
             break;;
     esac
 
 done
+
 exit
 
 # end of file
