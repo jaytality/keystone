@@ -2,7 +2,7 @@
 
 > ### **Keystone**
 >
-> _A central stone at the summit of an arch, locking the whole together._
+> _An immaterial thing upon which something else rests._
 
 This project was developed for rapidly deploying a core set of services that I'd need for hosting web-based projects locally for development.
 This project can also be deployed for production (no matter how the SysOps and Engineers feel about Docker in production haha)
