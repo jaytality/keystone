@@ -14,6 +14,7 @@ This project can also be deployed for production (no matter how the SysOps and E
 ## Requirements
 
 * Docker must be installed on the server
+* **Docker-Compose** must be installed on the server
 * Bash script must be supported
 
 ## What's Deployed
