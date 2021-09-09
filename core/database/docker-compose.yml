@@ -10,7 +10,6 @@ services:
     container_name: core_db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_USER: root
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
       default:
